@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'models/task.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
@@ -14,19 +15,18 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   void _saveTask() {
     if (_formKey.currentState!.validate()) {
-      print('Title: ${_titleController.text}');
-      print('Description: ${_descriptionController.text}');
-      // For now, just go back to Home
-      Navigator.pop(context);
+      final newTask = Task(
+        title: _titleController.text,
+        description: _descriptionController.text,
+      );
+      Navigator.pop(context, newTask); // return the Task to HomeScreen
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Task'),
-      ),
+      appBar: AppBar(title: const Text('New Task')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
